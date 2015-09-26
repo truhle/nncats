@@ -1,0 +1,38 @@
+<%= form_for @cat do |f| %>
+
+  <fieldset>
+
+    <p>
+      <%= f.label :name %><br/>
+      <%= f.text_field :name, autofocus: true %>
+    </p>
+
+    <p>
+      <%= f.label :sex %><br/>
+      <%= f.radio_button :sex, 'M' %> Male
+      <%= f.radio_button :sex, 'F' %> Female
+    </p>
+
+    <p>
+      <%= f.label :color %><br/>
+      <%= f.select :color, Cat::COLORS, include_blank: true %>
+    </p>
+
+    <p>
+      <%= f.label :birth_date, "Birth Date (Year-Month-Day)" %><br/>
+      <%= f.date_field :birth_date %>
+    </p>
+
+    <p>
+      <%= f.label :description %><br/>
+      <%= f.text_area :description %>
+    </p>
+
+    <p>
+      <%= f.submit %>
+      <%= link_to "Cancel", cats_path %>
+    </p>
+
+  </fieldset>
+
+<% end %>
