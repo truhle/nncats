@@ -1,0 +1,22 @@
+
+<%= form_for @cat_rental_request do |f| %>
+  <%= render "shared/errors", object: @cat_rental_request %>
+  <fieldset>
+    <p>
+      <%= f.label "Choose a cat" %><br>
+      <%= f.select :cat_id, @cats.map {|c| [ c.name, c.id]}, autofocus: true, include_blank: true %>
+    </p>
+    <p>
+      <%= f.label :start_date %><br>
+      <%= f.date_select :start_date %>
+    </p>
+    <p>
+      <%= f.label :end_date %><br>
+      <%= f.date_select :end_date %>
+    </p>
+
+    <p>
+      <%= f.submit "Make Request"%>
+    </p>
+  </fieldset>
+<% end %>

@@ -1,3 +1,4 @@
+<h1><%= @cat.name %></h1>
 <table>
   <tr>
     <th>Name</th>
@@ -14,3 +15,13 @@
     <td><%= @cat.description %></td>
   </tr>
 </table>
+
+<% if @rental_requests.any? %>
+  <h2>Rental Requests</h2>
+  <% @rental_requests.each do |request| %>
+    <p>
+      <strong>Start Date:</strong> <%= request.start_date %>
+      <strong>End Date:</strong> <%= request.end_date %>
+    </p>
+  <% end %>
+<% end %>

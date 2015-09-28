@@ -29,7 +29,7 @@ class CatRentalRequest < ActiveRecord::Base
     if requests = overlapping_requests
       requests.each do |request|
         if request.approved?
-          errors.add(:dates, "another request has been approved from #{request.start_date} to #{request.end_date}")
+          errors.add(:base, "Another request has been approved from #{request.start_date} to #{request.end_date}")
         end
       end
     end
