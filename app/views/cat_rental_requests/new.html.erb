@@ -4,7 +4,7 @@
   <fieldset>
     <p>
       <%= f.label "Choose a cat" %><br>
-      <%= f.select :cat_id, @cats.map {|c| [ c.name, c.id]}, autofocus: true, include_blank: true %>
+      <%= f.select :cat_id, @cats.map {|c| [ c.name, c.id]}, { include_blank: true }, { autofocus: true } %>
     </p>
     <p>
       <%= f.label :start_date %><br>
