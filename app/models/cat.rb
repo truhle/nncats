@@ -6,6 +6,8 @@ class Cat < ActiveRecord::Base
   validates :sex, inclusion: { in: SEXES }
   validates :birth_date, :name, :description, presence: true
 
+  has_many :cat_rental_requests, dependent: :destroy
+
   def age
     now = Date.today
     dob = self.birth_date
