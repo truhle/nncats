@@ -18,6 +18,11 @@ class CatRentalRequest < ActiveRecord::Base
     end
   end
 
+  def deny!
+    self.status = "DENIED"
+    self.save(validate: false)
+  end
+
   def overlapping_approved_requests?
     if requests = overlapping_requests
       requests.each do |request|
