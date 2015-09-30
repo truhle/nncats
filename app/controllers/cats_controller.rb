@@ -27,7 +27,7 @@ class CatsController < ApplicationController
 
   def show
     @cat = Cat.find(params[:id])
-    @rental_requests = CatRentalRequest.where(cat_id: params[:id]).order(:start_date)
+    @rental_requests = CatRentalRequest.includes(:requester).where(cat_id: params[:id]).order(:start_date)
   end
 
 private

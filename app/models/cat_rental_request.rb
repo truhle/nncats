@@ -1,7 +1,8 @@
 class CatRentalRequest < ActiveRecord::Base
   belongs_to :cat
+  belongs_to :requester, class_name: "User", foreign_key: "user_id"
 
-  validates :cat_id, :start_date, :end_date, :status, presence: true
+  validates :cat_id, :end_date, :requester, :start_date, :status, presence: true
   STATUSES = ["PENDING", "APPROVED", "DENIED"]
   validates :status, inclusion: { in: STATUSES }
   validate :overlapping_approved_requests?

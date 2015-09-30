@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   has_many :cats
+  has_many :cat_rental_requests
 
   after_initialize :reset_session_token!, if: :new_record?
 

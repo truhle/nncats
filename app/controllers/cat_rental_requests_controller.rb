@@ -1,6 +1,7 @@
 class CatRentalRequestsController < ApplicationController
 
   before_action :cat_owner?, only: [:approve, :deny]
+  before_action :must_be_logged_in, only: [:create, :new]
 
   def approve
     @cat_rental_request ||= CatRentalRequest.find(params[:id])
@@ -31,6 +32,7 @@ class CatRentalRequestsController < ApplicationController
 
   def create
     @cat_rental_request = CatRentalRequest.new(cat_rental_request_params)
+    @cat_rental_request.user_id = current_user.id
     if @cat_rental_request.save
       redirect_to cat_url(@cat_rental_request.cat_id)
     else

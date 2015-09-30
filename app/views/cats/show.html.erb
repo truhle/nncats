@@ -28,6 +28,7 @@
 
         <strong>Start Date:</strong> <%= request.start_date %>
         <strong>End Date:</strong> <%= request.end_date %>
+        <strong>Requester:</strong> <%= request.requester.user_name %>
         <strong>Status:</strong> <%= request.status %>
         </div>
         <% if request.pending? && @cat.owner == current_user %>
