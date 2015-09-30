@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user, only: :new
+  before_action :must_not_be_logged_in, only: :new
 
   def new
     @user = User.new

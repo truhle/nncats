@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
+  has_many :cats
+
   after_initialize :reset_session_token!, if: :new_record?
 
   validates :user_name, :session_token, :password_digest, presence: true

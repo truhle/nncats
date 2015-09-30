@@ -1,12 +1,13 @@
 class Cat < ActiveRecord::Base
+  has_many :cat_rental_requests, dependent: :destroy
+  belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
   COLORS = ["Cream", "Black", "White", "Gray", "Silver", "Brown", "Gold", "Ginger", "Golden Tabby", "Gray Tabby", "Silver Tabby", "Brown Tabby", "Light Brown Tabby", "Ginger Tabby", "Pale Ginger Tabby", "Calico"].sort
   validates :color, inclusion: { in: COLORS }
   SEXES = ["M", "F"]
   validates :sex, inclusion: { in: SEXES }
-  validates :birth_date, :name, :description, presence: true
+  validates :birth_date, :description, :name, :owner, presence: true
 
-  has_many :cat_rental_requests, dependent: :destroy
 
   def age
     now = Date.today

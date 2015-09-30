@@ -9,7 +9,7 @@ class CatRentalRequest < ActiveRecord::Base
   def approve!
     transaction do
       pending_request_overlaps = overlapping_pending_requests
-      unless pending_request_overlaps.nil?
+      unless pending_request_overlaps.blank?
         pending_request_overlaps.each do |request|
           request.update(status: "DENIED")
         end

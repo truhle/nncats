@@ -30,7 +30,7 @@
         <strong>End Date:</strong> <%= request.end_date %>
         <strong>Status:</strong> <%= request.status %>
         </div>
-        <% if request.pending? %>
+        <% if request.pending? && @cat.owner == current_user %>
           <div style="float: left;">
             <%= button_to "Approve", approve_cat_rental_request_path(request), method: :patch %>
           </div>
