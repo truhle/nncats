@@ -10,8 +10,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session_token = session[:session_token]
     if current_user
-      current_user.reset_session_token!
+      current_user.destroy_this_session!(session_token)
     end
     session[:session_token] = ''
     redirect_to root_url

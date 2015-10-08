@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= User.find_by(session_token: session[:session_token])
+    @current_user ||= User.find_by(id: user_id_from_session_token)
   end
 
   helper_method :current_user
@@ -24,8 +24,10 @@ class ApplicationController < ActionController::Base
   end
 
   def login_user!(user)
-    user.reset_session_token!
-    session[:session_token] = user.session_token
+    session[:session_token] = user.set_session_token!.session_token
+    attributes = get_session_attributes
+    this_session = user.user_sessions.find_by(session_token: session[:session_token])
+    user.set_session_attributes(session: this_session, attributes: attributes)
     redirect_to root_url
   end
 
@@ -38,6 +40,34 @@ class ApplicationController < ActionController::Base
   def must_not_be_logged_in
     if logged_in?
       redirect_to root_url
+    end
+  end
+
+private
+
+  def get_session_attributes
+    user_agent = request.env["HTTP_USER_AGENT"]
+    client = DeviceDetector.new(user_agent)
+    if client.known?
+      browser = client.name
+      device = client.device_name
+      os = "#{client.os_name} #{client.os_full_version}"
+      attributes = {
+        browser: browser,
+        device:  device,
+        os:      os
+      }
+    else
+      attributes = {
+        browser: "Unknown"
+      }
+    end
+  end
+
+  def user_id_from_session_token
+    this_session = UserSession.find_by(session_token: session[:session_token])
+    if this_session
+      this_session.user_id
     end
   end
 end

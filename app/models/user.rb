@@ -6,18 +6,31 @@ class User < ActiveRecord::Base
 
   has_many :cats
   has_many :cat_rental_requests
+  has_many :user_sessions
 
-  after_initialize :reset_session_token!, if: :new_record?
+  # after_initialize :set_session_token!, if: :new_record?
 
-  validates :user_name, :session_token, :password_digest, presence: true
-  validates :user_name, :session_token, uniqueness: true
+  validates :user_name, :password_digest, presence: true
+  validates :user_name, uniqueness: true
+
+  def destroy_this_session!(session_token)
+    this_session = user_sessions.find_by(session_token: session_token)
+    this_session.destroy
+  end
 
   def password=(password)
     self.password_digest = BCrypt::Password.create(password)
   end
 
-  def reset_session_token!
-    update_attribute(:session_token, SecureRandom.urlsafe_base64)
+  def set_session_token!
+    session_token = SecureRandom.urlsafe_base64
+    this_session = user_sessions.create(session_token: session_token)
+  end
+
+  def set_session_attributes(options)
+    this_session = options[:session]
+    attributes = options[:attributes]
+    this_session.update(browser: attributes[:browser], device: attributes[:device], os: attributes[:os])
   end
 
   def is_password?(password)
@@ -31,6 +44,5 @@ class User < ActiveRecord::Base
       user
     end
   end
-
 
 end

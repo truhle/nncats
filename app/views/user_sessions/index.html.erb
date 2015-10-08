@@ -1,0 +1,11 @@
+<h3><%= @user.user_name + ", you have " + pluralize(@user_sessions.count, "open session") %></h3>
+
+<% @user_sessions.each do |user_session| %>
+  <%= user_session.id %> |
+  <%= user_session.device %>
+  <%= user_session.os %>
+  <%= user_session.browser %>
+  <%= user_session.created_at %>
+  <%= button_to "Logout", user_user_session_path(@user.id, user_session.id), method: :delete %>
+  <br/>
+<% end %>

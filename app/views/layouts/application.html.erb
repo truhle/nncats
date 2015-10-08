@@ -13,11 +13,15 @@
 
     <div style="float:left;">
 
-    <h2><%= current_user.user_name %></h2>
+    <h2><%= link_to current_user.user_name, root_path %></h2>
     </div>
     <div style="float: left; margin-top: 23px; margin-left: 10px;">
 
     <%= button_to "Logout", session_path, method: :delete %>
+    </div>
+    <div style="float: left; margin-top: 23px; margin-left: 10px;">
+
+    <%= button_to "All Sessions", user_user_sessions_path(current_user.id), method: :get %>
     </div>
     <div style="clear:both; margin-bottom: -20px;">
 
