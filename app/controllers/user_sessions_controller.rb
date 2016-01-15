@@ -3,7 +3,7 @@ class UserSessionsController < ApplicationController
 before_action :must_be_logged_in
 
   def index
-    @user = User.find(params[:user_id])
+    @user = current_user
     @user_sessions = @user.user_sessions.all
   end
 

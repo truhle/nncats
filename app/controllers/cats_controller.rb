@@ -14,7 +14,7 @@ class CatsController < ApplicationController
   end
 
   def edit
-    @cat ||= Cat.find(params[:id])
+    @cat = Cat.find(params[:id])
   end
 
   def index
@@ -27,7 +27,17 @@ class CatsController < ApplicationController
 
   def show
     @cat = Cat.find(params[:id])
+    @owner_name = @cat.owner.user_name
     @rental_requests = CatRentalRequest.includes(:requester).where(cat_id: params[:id]).order(:start_date)
+  end
+
+  def update
+    @cat = Cat.find(params[:id])
+    if @cat.update(cat_params)
+      redirect_to @cat
+    else
+      render :edit
+    end
   end
 
 private

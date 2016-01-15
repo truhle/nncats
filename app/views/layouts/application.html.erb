@@ -11,25 +11,31 @@
   <% unless current_user.blank? %>
     <div>
 
-    <div style="float:left;">
+      <div style="float:left;">
+        <h2><%= link_to current_user.user_name, root_path %></h2>
+      </div>
 
-    <h2><%= link_to current_user.user_name, root_path %></h2>
-    </div>
-    <div style="float: left; margin-top: 23px; margin-left: 10px;">
+      <div style="float: left; margin-top: 23px; margin-left: 10px;">
+        <%= button_to "Logout", session_path, method: :delete %>
+      </div>
 
-    <%= button_to "Logout", session_path, method: :delete %>
-    </div>
-    <div style="float: left; margin-top: 23px; margin-left: 10px;">
+      <div style="float: left; margin-top: 23px; margin-left: 10px;">
+        <%= button_to "All Sessions", user_user_sessions_path(current_user.id), method: :get %>
+      </div>
 
-    <%= button_to "All Sessions", user_user_sessions_path(current_user.id), method: :get %>
-    </div>
-    <div style="clear:both; margin-bottom: -20px;">
-
-    </div>
     </div>
   <% else %>
-    <%= button_to "Login", new_session_path,  method: :get  %>
+    <div>
+      <div style="float: left;">
+        <%= button_to "Sign In", new_session_path,  method: :get  %>
+      </div>
+      <div style="float: left; margin-left: 10px;">
+
+        <%= button_to "Sign Up", new_user_path, method: :get %>
+      </div>
+    </div>
   <% end %>
+  <div style="clear:both; margin-bottom: -20px;"></div>
 
 </header>
 <%= yield %>

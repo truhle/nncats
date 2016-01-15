@@ -1,5 +1,16 @@
 <h1>Cats</h1>
 
+
 <% @cats.each do |cat| %>
   <%= link_to cat.name, cat %>
+  <br><br>
+<% end %>
+
+<% if current_user %>
+  <div style="float: left;">
+    <%= button_to "Request a Cat Rental", new_cat_rental_request_path, method: :get %>
+  </div>
+  <div style="float: left; margin-right: 10px">
+    <%= button_to "Add a Cat", new_cat_path, method: :get %>
+  </div>
 <% end %>

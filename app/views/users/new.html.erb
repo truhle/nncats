@@ -1,12 +1,14 @@
+<br><br>
 <%= form_for :user, url: users_path  do |f| %>
   <%= render "shared/errors", object: @user %>
 
-  <%= f.label :user_name %>
-  <%= f.text_field :user_name %>
+  <%= f.label :user_name, "Username" %>
+  <%= f.text_field :user_name %><br><br>
 
   <%= f.label :password %>
-  <%= f.text_field :password %>
+  <%= f.password_field :password %><br><br>
 
-  <%= f.submit %>
+  <%= f.submit "Create Account" %> |
+  <%= link_to "Back to Cats", cats_path %>
 
 <% end %>
